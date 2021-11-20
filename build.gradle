@@ -1,0 +1,55 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'com.github.node-gradle.node' version '3.1.1'
+    id 'java'
+    id 'war'
+}
+
+group = 'kz.edu.nu'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+node {
+    version = '16.13.0'
+    yarnVersion = '1.22.17'
+
+    download = true
+
+    workDir = file("${project.buildDir}/yarn")
+    npmWorkDir = file("${project.buildDir}/yarn")
+}
+
+task frontendInstall(type: YarnTask) {
+    workingDir = file("${project.projectDir}/frontend")
+    args = ["install"]
+}
+
+task frontendBuild(type: YarnTask) {
+    workingDir = file("${project.projectDir}/frontend")
+    args = ["run", "build"]
+}
+
+task copyResources(type: Copy) {
+    from "frontend/build"
+    into "build/resources/main/static"
+}
+
+frontendBuild.dependsOn frontendInstall
+copyResources.dependsOn frontendBuild
+build.dependsOn copyResources
