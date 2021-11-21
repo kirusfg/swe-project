@@ -1,3 +1,16 @@
+# Hotel Management System UI
+
+The description of the project suggests that the app should provide an interface both to the hotel visitors and
+hotel workers. I'll call those website and dashboard.
+
+On the website, a user (hotel guest) must be able to register/login, reserve a room for themselves or their relatives,
+view their billing history and visits.
+
+The dashboard should allow the employees setup and view a cleaning schedule, clerks must be able to create, change,
+and cancel room bookings, and managers have to see their subordinates' salaries.
+
+## React
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -16,6 +29,8 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+You can run these, but for this project, you do not need to:
 
 ### `yarn build`
 
