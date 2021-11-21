@@ -1,4 +1,4 @@
-package kz.edu.nu.hotel;
+package kz.edu.nu.hotel.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

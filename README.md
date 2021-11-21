@@ -9,10 +9,20 @@
 
 ### Backend
 - Spring Boot
-- Spring Web extension
+- Spring Web
+- Spring Data JPA
+- Hibernate
+- PostgreSQL
 
 ### Dev Dependencies
 - Spring Boot DevTools (enables automatic server restart when a change in files is detected)
+
+## Preliminary Setup
+
+Before you do anything with the backend, you must have PostgreSQL installed and running on the default port (5432), 
+your `postgres` default user should not have a password, and you must create a `hotel` table.
+
+The tables are going to be generated automatically by Hibernate using the metadata from the models you create.
 
 ## Workflow
 
