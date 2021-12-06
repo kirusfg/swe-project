@@ -1,4 +1,4 @@
-package kz.edu.nu.hotel.controller;
+package kz.edu.nu.hotel.controller.employee;
 
 public class EmployeeNotFoundException extends RuntimeException {
     public EmployeeNotFoundException(Long id) {

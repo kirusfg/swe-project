@@ -1,4 +1,4 @@
-package kz.edu.nu.hotel.model;
+package kz.edu.nu.hotel.model.employee;
 
 import javax.persistence.*;
 
