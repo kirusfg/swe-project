@@ -3,6 +3,7 @@ package kz.edu.nu.hotel.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Hotel", schema = "public")
@@ -17,14 +18,15 @@ public class Hotel {
     @Column(nullable = false, length = 300)
     private String address;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     protected Hotel() {}
 
-    public Hotel(String name, String address) {
+    public Hotel(String name, String address, List<String> phoneNumbers) {
         this.name = name;
         this.address = address;
+        this.phoneNumbers = phoneNumbers.stream().map(PhoneNumber::new).collect(Collectors.toList());
     }
 
     public Long getId() {
