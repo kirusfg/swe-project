@@ -1,14 +1,15 @@
 package kz.edu.nu.hotel.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Hotel", schema = "public")
 public class Hotel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false, length = 100)
@@ -17,22 +18,23 @@ public class Hotel {
     @Column(nullable = false, length = 300)
     private String address;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private List<Feature> features = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     protected Hotel() {}
 
-    public Hotel(String name, String address) {
+    public Hotel(String name, String address, List<String> phoneNumbers) {
         this.name = name;
         this.address = address;
+        this.phoneNumbers = phoneNumbers.stream().map(PhoneNumber::new).collect(Collectors.toList());
     }
 
     public Long getId() {
         return id;
     }
 
-    public List<Feature> getFeatures() {
-        return features;
+    public List<PhoneNumber> getPhoneNumbers() {
+        return phoneNumbers;
     }
 
     public String getName() {
