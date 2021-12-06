@@ -1,4 +1,4 @@
-package kz.edu.nu.hotel.controller;
+package kz.edu.nu.hotel.controller.hotel;
 
 public class HotelNotFoundException extends RuntimeException {
     public HotelNotFoundException(Long id) {

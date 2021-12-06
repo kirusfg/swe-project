@@ -1,4 +1,6 @@
-package kz.edu.nu.hotel.model;
+package kz.edu.nu.hotel.model.hotel;
+
+import kz.edu.nu.hotel.model.PhoneNumber;
 
 import javax.persistence.*;
 import java.util.ArrayList;

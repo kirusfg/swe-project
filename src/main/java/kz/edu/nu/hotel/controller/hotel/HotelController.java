@@ -1,9 +1,9 @@
-package kz.edu.nu.hotel.controller;
+package kz.edu.nu.hotel.controller.hotel;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kz.edu.nu.hotel.model.Hotel;
-import kz.edu.nu.hotel.repository.HotelRepository;
+import kz.edu.nu.hotel.model.hotel.Hotel;
+import kz.edu.nu.hotel.repository.hotel.HotelRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
