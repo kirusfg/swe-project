@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.0'
+    id 'org.springframework.boot' version '2.6.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'com.github.node-gradle.node' version '3.1.1'
     id 'java'
@@ -15,11 +15,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.6'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.5.6'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.6'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.6'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest:2.6.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.1'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.6.1'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.1'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools:2.6.1'
     runtimeOnly 'org.postgresql:postgresql:42.3.1'
 }
 
