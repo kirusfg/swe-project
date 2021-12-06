@@ -1,15 +1,14 @@
 package kz.edu.nu.hotel.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import kz.edu.nu.hotel.model.Hotel;
 import kz.edu.nu.hotel.repository.HotelRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * A controller to list, create, edit, and delete hotels
- */
+@Tag(name = "Hotels")
 @RestController
 public class HotelController {
     private final HotelRepository repository;
