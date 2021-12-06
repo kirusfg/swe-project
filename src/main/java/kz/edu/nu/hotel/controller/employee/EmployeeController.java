@@ -3,7 +3,7 @@ package kz.edu.nu.hotel.controller.employee;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kz.edu.nu.hotel.model.employee.Employee;
-import kz.edu.nu.hotel.repository.employee.EmployeeRepository;
+import kz.edu.nu.hotel.repository.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

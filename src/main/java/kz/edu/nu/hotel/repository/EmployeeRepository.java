@@ -1,4 +1,4 @@
-package kz.edu.nu.hotel.repository.employee;
+package kz.edu.nu.hotel.repository;
 
 import kz.edu.nu.hotel.model.employee.Employee;
 import org.springframework.data.repository.CrudRepository;
