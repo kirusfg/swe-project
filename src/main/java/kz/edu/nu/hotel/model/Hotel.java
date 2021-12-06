@@ -1,14 +1,14 @@
 package kz.edu.nu.hotel.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "Hotel", schema = "public")
 public class Hotel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false, length = 100)
@@ -18,7 +18,7 @@ public class Hotel {
     private String address;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private List<Feature> features = new ArrayList<>();
+    private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     protected Hotel() {}
 
@@ -31,8 +31,8 @@ public class Hotel {
         return id;
     }
 
-    public List<Feature> getFeatures() {
-        return features;
+    public List<PhoneNumber> getPhoneNumbers() {
+        return phoneNumbers;
     }
 
     public String getName() {
