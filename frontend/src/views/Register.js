@@ -17,14 +17,39 @@ import {
   Link,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Link as BrowserLink } from 'react-router-dom';
+import { Link as BrowserLink, useNavigate } from 'react-router-dom';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 
 export default function Register() {
-  const user = useContext(UserContext);
   const setUser = useContext(UserDispatchContext);
-  const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [mobilePhoneNumber, setMobilePhoneNumber] = useState("");
+
+  function register() {
+    fetch('/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: { email, name, surname } , mobilePhoneNumber
+      })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setUser(data);
+        navigate("/", { replace: true });
+      })
+      .catch((err) => console.error(err));
+  }
+
 
   return (
     <Flex
@@ -51,28 +76,29 @@ export default function Register() {
               <Box>
                 <FormControl id="firstName" isRequired>
                   <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
+                  <Input type="text" onChange={(e) => setName(e.target.value)} />
                 </FormControl>
               </Box>
               <Box>
                 <FormControl id="lastName" isRequired>
                   <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
+                  <Input type="text" onChange={(e) => setSurname(e.target.value)} />
                 </FormControl>
               </Box>
             </HStack>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input type="email" onChange={(e) => setEmail(e.target.value)} />
             </FormControl>
             <FormControl id="phone" isRequired>
               <FormLabel>Mobile phone number</FormLabel>
-              <Input type="tel" />
+              <Input type="tel" onChange={(e) => setMobilePhoneNumber(e.target.value)} />
             </FormControl>
 
             <Stack spacing={10} pt={2}>
               <Button
                 loadingText="Submitting"
+                onClick={() => register()}
                 size="lg"
                 bg={'blue.400'}
                 color={'white'}
