@@ -1,5 +1,8 @@
 package kz.edu.nu.hotel.model;
 
+import kz.edu.nu.hotel.model.employee.Employee;
+import kz.edu.nu.hotel.model.employee.EmployeeRole;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +25,13 @@ public class Hotel {
     private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "guest_id")
     private List<Guest> guests = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> employees = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Room> rooms = new ArrayList<>();
 
     protected Hotel() {}
@@ -32,14 +39,15 @@ public class Hotel {
     public Hotel(String name, String address, List<PhoneNumber> phoneNumbers) {
         this.name = name;
         this.address = address;
-        this.phoneNumbers = phoneNumbers;//.stream().map(PhoneNumber::new).collect(Collectors.toList());
+        this.phoneNumbers = phoneNumbers;
 
-        List<Room> rooms = new ArrayList<>();
         Random random = new Random();
 
+        List<Room> rooms = new ArrayList<>();
         int floors = random.nextInt(2, 10);
         int perFloor = random.nextInt(10, 30);
 
+        // N single rooms
         for (int i = 1; i <= floors; i++) {
             for (int j = 1; j <= perFloor; j++) {
                 rooms.add(new Room(RoomType.Single,
@@ -50,6 +58,7 @@ public class Hotel {
             }
         }
 
+        // N/2 double rooms
         for (int i = 1; i <= floors; i++) {
             for (int j = 1; j <= perFloor / 2; j++) {
                 rooms.add(new Room(RoomType.Double,
@@ -61,6 +70,23 @@ public class Hotel {
         }
 
         this.rooms = rooms;
+
+        List<Employee> employees = new ArrayList<>();
+        Employee manager = new Employee(String.format("manager%d@mail.com", this.id),
+                "Admin",
+                "Employev",
+                new EmployeeRole("manager"));
+        employees.add(manager);
+
+        for (int i = 0; i < random.nextInt(50); i++) {
+            Employee worker = new Employee(String.format("worker%d@mail.com", i),
+                    "Employee",
+                    "Employev",
+                    new EmployeeRole("worker"));
+            employees.add(worker);
+        }
+
+        this.employees = employees;
     }
 
     public Long getId() {
@@ -85,5 +111,9 @@ public class Hotel {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
     }
 }
