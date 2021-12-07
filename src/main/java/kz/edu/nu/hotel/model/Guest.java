@@ -8,45 +8,40 @@ import java.util.List;
 @Table(name = "Guest", schema = "public")
 public class Guest {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "id_type")
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column
     private String idType;
 
     @Column
-    private String number;
+    private String idNumber;
 
     @Column
     private String address;
 
-    @Column(name = "home_phone_number")
-    private String homePhoneNumber;
+    @OneToOne(cascade = CascadeType.ALL)
+    private PhoneNumber homePhoneNumber;
 
-    @Column(name = "mobile_phone_number")
-    private String mobilePhoneNumber;
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    private PhoneNumber mobilePhoneNumber;
 
     @OneToMany
     private List<Room> rooms = new ArrayList<>();
 
-    public Guest() {
+    protected Guest() {}
+
+    public Guest(String email, String name, String surname, String mobilePhoneNumber) {
+        this.user = new User(email, name, surname);
+        this.mobilePhoneNumber = new PhoneNumber(mobilePhoneNumber);
     }
 
-    public Guest(Long id, String idType, String number, String address, String homePhoneNumber, String mobilePhoneNumber) {
-        this.id = id;
-        this.idType = idType;
-        this.number = number;
-        this.address = address;
-        this.homePhoneNumber = homePhoneNumber;
-        this.mobilePhoneNumber = mobilePhoneNumber;
-    }
-
-    public Long getId() {
+    private Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getIdType() {
@@ -57,12 +52,12 @@ public class Guest {
         this.idType = idType;
     }
 
-    public String getNumber() {
-        return number;
+    public String getIdNumber() {
+        return idNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setIdNumber(String number) {
+        this.idNumber = number;
     }
 
     public String getAddress() {
@@ -73,19 +68,27 @@ public class Guest {
         this.address = address;
     }
 
-    public String getHomePhoneNumber() {
+    public PhoneNumber getHomePhoneNumber() {
         return homePhoneNumber;
     }
 
-    public void setHomePhoneNumber(String homePhoneNumber) {
+    public void setHomePhoneNumber(PhoneNumber homePhoneNumber) {
         this.homePhoneNumber = homePhoneNumber;
     }
 
-    public String getMobilePhoneNumber() {
+    public PhoneNumber getMobilePhoneNumber() {
         return mobilePhoneNumber;
     }
 
-    public void setMobilePhoneNumber(String mobilePhoneNumber) {
+    public void setMobilePhoneNumber(PhoneNumber mobilePhoneNumber) {
         this.mobilePhoneNumber = mobilePhoneNumber;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

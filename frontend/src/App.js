@@ -1,40 +1,33 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import {
   ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
+  Flex,
   theme,
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+
+import { UserProvider } from './providers/UserProvider'
+
+import NavBar from './components/NavBar';
+
+import Register from './views/Register';
+import Login from './views/Login';
+import Home from './views/Home';
+
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
+      <UserProvider>
+        <Flex minHeight='100vh' top={0} bottom={0} direction='column'>
+        <NavBar />
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
+          </Routes>
+        </Flex>
+      </UserProvider>
     </ChakraProvider>
   );
 }

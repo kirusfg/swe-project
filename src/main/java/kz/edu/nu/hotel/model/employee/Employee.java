@@ -1,5 +1,7 @@
 package kz.edu.nu.hotel.model.employee;
 
+import kz.edu.nu.hotel.model.User;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,11 +11,9 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 30)
-    private String name;
-
-    @Column(nullable = false, length = 30)
-    private String surname;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
@@ -21,10 +21,9 @@ public class Employee {
 
     protected Employee() {}
 
-    public Employee(String name, String surname, EmployeeRole role) {
-        this.name = name;
-        this.surname = surname;
+    public Employee(String email, String name, String surname, EmployeeRole role) {
         this.role = role;
+        this.user = new User(email, name, surname);
     }
 
     public Long getId() {
@@ -32,19 +31,19 @@ public class Employee {
     }
 
     public String getName() {
-        return name;
+        return user.getName();
     }
 
     public String getSurname() {
-        return surname;
+        return user.getSurname();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.user.setName(name);
     }
 
     public void setSurname(String surname) {
-        this.surname = surname;
+        this.user.setSurname(surname);
     }
 
     public EmployeeRole getRole() {

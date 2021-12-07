@@ -9,10 +9,8 @@ public class EmployeeRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String description;
-
-    @OneToOne(mappedBy = "role")
-    private Employee employee;
 
     protected EmployeeRole() {}
 
