@@ -30,20 +30,12 @@ public class Employee {
         return id;
     }
 
-    public String getName() {
-        return user.getName();
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getSurname() {
-        return user.getSurname();
-    }
-
-    public void setName(String name) {
-        this.user.setName(name);
-    }
-
-    public void setSurname(String surname) {
-        this.user.setSurname(surname);
+    public User getUser() {
+        return this.user;
     }
 
     public EmployeeRole getRole() {

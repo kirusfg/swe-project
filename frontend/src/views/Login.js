@@ -6,37 +6,65 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
-  HStack,
-  InputRightElement,
+  Link,
   Stack,
+  Switch,
   Button,
   Heading,
   Text,
   useColorModeValue,
-  Link,
+  useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Link as BrowserLink, useNavigate } from 'react-router-dom';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 
 export default function Login() {
   const setUser = useContext(UserDispatchContext);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const [email, setEmail] = useState("");
+  const [employeeLogin, setEmployeeLogin] = useState(false);
 
   function login(email) {
-    fetch('/api/auth/login', {
+    const uri = employeeLogin ?
+      '/api/auth/employee/login' :
+      '/api/auth/login';
+
+    fetch(uri, {
       method: 'POST',
       body: email
     })
       .then((res) => res.json())
       .then((data) => {
-        setUser(data);
-        navigate("/", { replace: true });
-      })
+        if (!data.status) {
+          toast({
+            title: 'Success',
+            description: 'You will be redirected in a bit',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          });
+
+          setTimeout(() => {
+            setUser(data);
+            if (employeeLogin) {
+              navigate("/dashboard", { replace: true });
+            } else {
+              navigate("/", { replace: true });
+            }
+          }, 2000);
+        } else {
+          toast({
+            title: 'Wrong email',
+            description: "There is no user with that email",
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      });
   }
 
   return (
@@ -63,6 +91,13 @@ export default function Login() {
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
               <Input onChange={(e) => setEmail(e.target.value)} type="email" />
+            </FormControl>
+
+            <FormControl display='flex' alignItems='center'>
+              <FormLabel htmlFor='employee' mb='0'>
+                Employee
+              </FormLabel>
+              <Switch id='employee' size='lg' onChange={() => setEmployeeLogin((prev) => !prev)} />
             </FormControl>
 
             <Stack spacing={10} pt={2}>

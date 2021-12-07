@@ -1,7 +1,10 @@
 package kz.edu.nu.hotel.model.employee;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "EmployeeRole", schema = "public")
 public class EmployeeRole {

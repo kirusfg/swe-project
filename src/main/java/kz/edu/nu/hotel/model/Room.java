@@ -2,6 +2,11 @@ package kz.edu.nu.hotel.model;
 
 import javax.persistence.*;
 
+enum RoomType {
+    Single,
+    Double
+}
+
 @Entity
 @Table(name = "Room", schema = "public")
 public class Room {
@@ -10,7 +15,7 @@ public class Room {
     private Long id;
 
     @Column
-    private String type;
+    private RoomType type;
 
     @Column
     private int size;
@@ -18,23 +23,15 @@ public class Room {
     @Column
     private int capacity;
 
-    @Column(name = "room_number")
+    @Column
     private String roomNumber;
 
     @Column
     private int floor;
 
-    @ManyToOne
-    private Hotel hotel;
+    protected Room() {}
 
-    @ManyToOne
-    private Guest guest;
-
-    public Room() {
-    }
-
-    public Room(Long id, String type, int size, int capacity, String roomNumber, int floor) {
-        this.id = id;
+    public Room(RoomType type, int size, int capacity, String roomNumber, int floor) {
         this.type = type;
         this.size = size;
         this.capacity = capacity;
@@ -50,11 +47,11 @@ public class Room {
         this.id = id;
     }
 
-    public String getType() {
+    public RoomType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RoomType type) {
         this.type = type;
     }
 

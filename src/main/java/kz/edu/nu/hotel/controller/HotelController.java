@@ -26,7 +26,7 @@ public class HotelController {
     @Operation(summary = "Creates a new hotel")
     @PostMapping("/hotels")
     public Hotel newHotel(@RequestBody Hotel newHotel) {
-        return repository.save(newHotel);
+        return repository.save(new Hotel(newHotel.getName(), newHotel.getAddress(), newHotel.getPhoneNumbers()));
     }
 
     @Operation(summary = "Finds a hotel by id")

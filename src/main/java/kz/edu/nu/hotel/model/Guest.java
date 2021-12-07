@@ -1,8 +1,6 @@
 package kz.edu.nu.hotel.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "Guest", schema = "public")
@@ -29,9 +27,6 @@ public class Guest {
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     private PhoneNumber mobilePhoneNumber;
-
-    @OneToMany
-    private List<Room> rooms = new ArrayList<>();
 
     protected Guest() {}
 

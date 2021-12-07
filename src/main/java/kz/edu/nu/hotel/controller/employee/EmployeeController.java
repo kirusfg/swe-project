@@ -40,8 +40,7 @@ public class EmployeeController {
     public Employee edit(@RequestBody Employee newEmployee, @PathVariable Long id) {
         return repository.findById(id)
                 .map(employee -> {
-                    employee.setName(newEmployee.getName());
-                    employee.setSurname(newEmployee.getSurname());
+                    employee.setUser(newEmployee.getUser());
                     employee.setRole(newEmployee.getRole());
                     return repository.save(employee);
                 })
