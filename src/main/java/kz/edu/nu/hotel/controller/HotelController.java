@@ -3,8 +3,10 @@ package kz.edu.nu.hotel.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kz.edu.nu.hotel.model.Hotel;
+import kz.edu.nu.hotel.model.Reservation;
 import kz.edu.nu.hotel.model.Room;
 import kz.edu.nu.hotel.repository.HotelRepository;
+import kz.edu.nu.hotel.repository.ReservationRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,47 +14,70 @@ import java.util.List;
 @Tag(name = "Hotels")
 @RestController
 public class HotelController {
-    private final HotelRepository repository;
+    private final HotelRepository hotels;
+    private final ReservationRepository reservations;
 
-    public HotelController(HotelRepository repository) {
-        this.repository = repository;
+    public HotelController(HotelRepository hotels, ReservationRepository reservations) {
+        this.hotels = hotels;
+        this.reservations = reservations;
     }
 
     @Operation(summary = "Returns all hotels")
     @GetMapping("/hotels")
     public List<Hotel> all() {
-        return (List<Hotel>) repository.findAll();
+        return (List<Hotel>) hotels.findAll();
     }
 
     @Operation(summary = "Creates a new hotel")
     @PostMapping("/hotels")
     public Hotel newHotel(@RequestBody Hotel newHotel) {
-        return repository.save(new Hotel(newHotel.getName(), newHotel.getAddress(), newHotel.getPhoneNumbers()));
+        return hotels.save(new Hotel(newHotel.getName(), newHotel.getAddress(), newHotel.getPhoneNumbers()));
     }
 
     @Operation(summary = "Finds a hotel by id")
     @GetMapping("/hotels/{id}")
     public Hotel byId(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow(() -> new HotelNotFoundException(id));
+        return hotels.findById(id).orElseThrow(() -> new HotelNotFoundException(id));
     }
 
     @Operation(summary = "Returns all rooms of a hotel by id")
     @GetMapping("/hotels/{id}/rooms")
     public List<Room> roomsById(@PathVariable Long id) {
-        Hotel hotel = repository.findById(id)
+        Hotel hotel = hotels.findById(id)
                 .orElseThrow(() -> new HotelNotFoundException(id));
 
         return hotel.getRooms();
     }
 
+    @Operation(summary = "Creates a reservation for a room in a hotel by id")
+    @PostMapping("/hotels/{id}/reserve")
+    public Reservation reserve(@PathVariable Long id,
+                               @RequestBody Reservation newReservation) {
+        Hotel hotel = hotels.findById(id)
+                .orElseThrow(() -> new HotelNotFoundException(id));
+
+        hotel.newReservation(newReservation);
+
+        return reservations.save(newReservation);
+    }
+
+    @Operation(summary = "Lists all reservations for rooms in a hotel by id")
+    @GetMapping("/hotels/{id}/reservations")
+    public List<Reservation> reservations(@PathVariable Long id) {
+        Hotel hotel = hotels.findById(id)
+                .orElseThrow(() -> new HotelNotFoundException(id));
+
+        return hotel.getReservations();
+    }
+
     @Operation(summary = "Modifies a hotel by id")
     @PutMapping("/hotels/{id}")
     public Hotel edit(@RequestBody Hotel newHotel, @PathVariable Long id) {
-        return repository.findById(id)
+        return hotels.findById(id)
                 .map(hotel -> {
                     hotel.setName(newHotel.getName());
                     hotel.setAddress(newHotel.getAddress());
-                    return repository.save(hotel);
+                    return hotels.save(hotel);
                 })
                 .orElseThrow(() -> new HotelNotFoundException(id));
     }
@@ -60,6 +85,6 @@ public class HotelController {
     @Operation(summary = "Deletes a hotel with a given id")
     @DeleteMapping("/hotels/{id}")
     public void delete(@PathVariable Long id) {
-        repository.deleteById(id);
+        hotels.deleteById(id);
     }
 }

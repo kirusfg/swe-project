@@ -35,7 +35,7 @@ public class Guest {
         this.mobilePhoneNumber = new PhoneNumber(mobilePhoneNumber);
     }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 

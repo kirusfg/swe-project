@@ -25,11 +25,13 @@ public class Hotel {
     private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "guest_id")
     private List<Guest> guests = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Room> rooms = new ArrayList<>();
@@ -115,5 +117,13 @@ public class Hotel {
 
     public List<Room> getRooms() {
         return rooms;
+    }
+
+    public void newReservation(Reservation reservation) {
+        this.reservations.add(reservation);
+    }
+
+    public List<Reservation> getReservations() {
+        return this.reservations;
     }
 }
