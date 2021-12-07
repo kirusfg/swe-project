@@ -21,6 +21,7 @@ public class Hotel {
     @OneToMany(cascade = CascadeType.ALL)
     private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
+
     protected Hotel() {}
 
     public Hotel(String name, String address, List<String> phoneNumbers) {

@@ -2,6 +2,7 @@ package kz.edu.nu.hotel.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,8 +15,8 @@ public class Guest {
     @Column(name = "id_type")
     private String idType;
 
-    @Column
-    private String number;
+    @Column(name = "id_number")
+    private String idNumber;
 
     @Column
     private String address;
@@ -26,16 +27,31 @@ public class Guest {
     @Column(name = "mobile_phone_number")
     private String mobilePhoneNumber;
 
-    @OneToMany
+    //I am not sure about that. How to express the bill?
+    @Column
+    private int bill;
+
+    @Column(name = "check_in")
+    private Date checkIn;
+
+    @Column(name = "check_out")
+    private Date checkOut;
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Room> rooms = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Bill> bills = new ArrayList<>();
 
     public Guest() {
     }
 
-    public Guest(Long id, String idType, String number, String address, String homePhoneNumber, String mobilePhoneNumber) {
+    public Guest(Long id, String idType, String number, String address, String homePhoneNumber, String mobilePhoneNumber, Date checkIn, Date checkOut) {
         this.id = id;
         this.idType = idType;
-        this.number = number;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.idNumber = number;
         this.address = address;
         this.homePhoneNumber = homePhoneNumber;
         this.mobilePhoneNumber = mobilePhoneNumber;
@@ -57,12 +73,12 @@ public class Guest {
         this.idType = idType;
     }
 
-    public String getNumber() {
-        return number;
+    public String getIdNumber() {
+        return idNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setIdNumber(String number) {
+        this.idNumber = number;
     }
 
     public String getAddress() {
@@ -87,5 +103,21 @@ public class Guest {
 
     public void setMobilePhoneNumber(String mobilePhoneNumber) {
         this.mobilePhoneNumber = mobilePhoneNumber;
+    }
+
+    public Date getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(Date checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public Date getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(Date checkOut) {
+        this.checkOut = checkOut;
     }
 }

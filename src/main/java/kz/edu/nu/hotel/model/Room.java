@@ -24,6 +24,12 @@ public class Room {
     @Column
     private int floor;
 
+    /*
+        base price for room (changes according to week of the day)
+     */
+    @Column
+    private int price;
+
     @ManyToOne
     private Hotel hotel;
 
@@ -33,13 +39,14 @@ public class Room {
     public Room() {
     }
 
-    public Room(Long id, String type, int size, int capacity, String roomNumber, int floor) {
+    public Room(Long id, String type, int size, int capacity, String roomNumber, int floor, int price) {
         this.id = id;
         this.type = type;
         this.size = size;
         this.capacity = capacity;
         this.roomNumber = roomNumber;
         this.floor = floor;
+        this.price = price;
     }
 
     public Long getId() {
@@ -89,4 +96,5 @@ public class Room {
     public void setFloor(int floor) {
         this.floor = floor;
     }
+
 }
