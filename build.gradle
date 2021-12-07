@@ -8,7 +8,7 @@ plugins {
 
 group = 'kz.edu.nu'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = "17"
 
 repositories {
     mavenCentral()
@@ -56,3 +56,4 @@ task copyResources(type: Copy) {
 frontendBuild.dependsOn frontendInstall
 copyResources.dependsOn frontendBuild
 build.dependsOn copyResources
+targetCompatibility = JavaVersion.VERSION_17
