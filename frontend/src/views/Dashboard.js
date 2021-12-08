@@ -6,6 +6,7 @@ import { UserContext} from '../providers/UserProvider';
 
 export default function Dashboard() {
   const user = useContext(UserContext);
+  console.log(user);
 
   if (user && user.role) {
     return (
