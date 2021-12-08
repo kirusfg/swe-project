@@ -1,8 +1,12 @@
-package kz.edu.nu.hotel.model.employee;
-
-import kz.edu.nu.hotel.model.User;
+package kz.edu.nu.hotel.model;
 
 import javax.persistence.*;
+
+enum EmployeeRole {
+    Manager,
+    Clerk,
+    Cleaner
+}
 
 @Entity
 @Table(name = "Employee", schema = "public")
@@ -15,8 +19,7 @@ public class Employee {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    @Column(nullable = false)
     private EmployeeRole role;
 
     protected Employee() {}

@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kz.edu.nu.hotel.model.Guest;
 import kz.edu.nu.hotel.model.User;
-import kz.edu.nu.hotel.model.employee.Employee;
+import kz.edu.nu.hotel.model.Employee;
 import kz.edu.nu.hotel.repository.GuestRepository;
 import kz.edu.nu.hotel.repository.UserRepository;
 import kz.edu.nu.hotel.repository.EmployeeRepository;

@@ -1,8 +1,5 @@
 package kz.edu.nu.hotel.model;
 
-import kz.edu.nu.hotel.model.employee.Employee;
-import kz.edu.nu.hotel.model.employee.EmployeeRole;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,20 +70,28 @@ public class Hotel {
 
         this.rooms = rooms;
 
+        int index = random.nextInt(1000000);
+
         List<Employee> employees = new ArrayList<>();
-        Employee manager = new Employee(String.format("manager%d@mail.com", this.id),
+        Employee manager = new Employee(String.format("manager%06d@mail.com", index),
                 "Admin",
                 "Employev",
-                new EmployeeRole("manager"));
+                EmployeeRole.Manager);
         employees.add(manager);
 
         for (int i = 0; i < random.nextInt(50); i++) {
-            Employee worker = new Employee(String.format("worker%d@mail.com", i),
-                    "Employee",
-                    "Employev",
-                    new EmployeeRole("worker"));
-            employees.add(worker);
+            Employee cleaner = new Employee(String.format("worker%06d%d@mail.com", index, i),
+                    "Cleaner",
+                    "Cleanerbekuly",
+                    EmployeeRole.Cleaner);
+            employees.add(cleaner);
         }
+
+        Employee clerk = new Employee(String.format("clerk%06d@mail.com", index),
+                "Clerk",
+                "Clerkovich",
+                EmployeeRole.Clerk);
+        employees.add(clerk);
 
         this.employees = employees;
     }
