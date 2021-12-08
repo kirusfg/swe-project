@@ -1,9 +1,13 @@
 package kz.edu.nu.hotel.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Hotel", schema = "public")
@@ -25,12 +29,18 @@ public class Hotel {
     private List<Guest> guests = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Employee> employees = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<ScheduleEntry> scheduleEntries = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Room> rooms = new ArrayList<>();
 
     protected Hotel() {}
@@ -130,5 +140,18 @@ public class Hotel {
 
     public List<Reservation> getReservations() {
         return this.reservations;
+    }
+
+    public List<Employee> getCleaners() {
+        return this.employees.stream().filter((Employee employee) ->
+                employee.getRole().equals(EmployeeRole.Cleaner)).collect(Collectors.toList());
+    }
+
+    public List<ScheduleEntry> getScheduleEntries() {
+        return scheduleEntries;
+    }
+
+    public void addScheduleEntry(ScheduleEntry entry) {
+        this.scheduleEntries.add(entry);
     }
 }

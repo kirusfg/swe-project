@@ -10,6 +10,7 @@ public class HealthController {
 
     @GetMapping("/health")
     public String health() {
+        System.out.println("Kirill mal");
         return "API is up!!!!";
     }
 

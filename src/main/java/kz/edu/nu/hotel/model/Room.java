@@ -29,6 +29,12 @@ public class Room {
     @Column
     private int floor;
 
+    @Column
+    private boolean isClean;
+
+    @Column
+    private boolean isOccupied;
+
     protected Room() {}
 
     public Room(RoomType type, int size, int capacity, String roomNumber, int floor) {
@@ -85,5 +91,9 @@ public class Room {
 
     public void setFloor(int floor) {
         this.floor = floor;
+    }
+
+    public void clean() {
+        this.isClean = true;
     }
 }

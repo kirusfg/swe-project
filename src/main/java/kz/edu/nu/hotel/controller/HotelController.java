@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import kz.edu.nu.hotel.model.Hotel;
 import kz.edu.nu.hotel.model.Reservation;
 import kz.edu.nu.hotel.model.Room;
+import kz.edu.nu.hotel.model.ScheduleEntry;
 import kz.edu.nu.hotel.repository.HotelRepository;
 import kz.edu.nu.hotel.repository.ReservationRepository;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +69,15 @@ public class HotelController {
                 .orElseThrow(() -> new HotelNotFoundException(id));
 
         return hotel.getReservations();
+    }
+
+    @Operation(summary = "Gets a cleaning schedule of a hotel by id")
+    @GetMapping("/hotels/{id}/schedule")
+    public List<ScheduleEntry> scheduleEntries(@PathVariable Long id) {
+        Hotel hotel = hotels.findById(id)
+                .orElseThrow(() -> new HotelNotFoundException(id));
+
+        return hotel.getScheduleEntries();
     }
 
     @Operation(summary = "Modifies a hotel by id")
