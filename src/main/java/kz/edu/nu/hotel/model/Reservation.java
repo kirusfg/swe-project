@@ -16,7 +16,7 @@ public class Reservation {
     private RoomType type;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer"})
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Guest guest;
 
     @Column(nullable = false)
@@ -32,6 +32,10 @@ public class Reservation {
         this.type = type;
         this.start = start;
         this.finish = finish;
+    }
+
+    public Long getId() {
+        return this.id;
     }
 
     public Guest getGuest() {
