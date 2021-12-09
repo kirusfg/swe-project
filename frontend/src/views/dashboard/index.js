@@ -10,8 +10,6 @@ import Clerk from './Clerk';
 export default function Dashboard() {
   const user = useContext(UserContext);
 
-  console.log(user);
-
   if (user && user.role) {
     if (user.role === 'Manager') {
       return <Manager />

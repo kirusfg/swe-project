@@ -79,7 +79,7 @@ export default function Reservation() {
                 if (!data.status) {
                     toast({
                         title: 'Success',
-                        description: 'You will be redirected in a bit',
+                        description: 'Need another room? Go ahead!',
                         status: 'success',
                         duration: 3000,
                         isClosable: true,
