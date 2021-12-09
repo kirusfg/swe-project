@@ -15,6 +15,7 @@ import Login from './views/Login';
 import Home from './views/Home';
 import Dashboard from './views/dashboard';
 import Reservation from "./views/Reservation";
+import Profile from "./views/Profile";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="reserve" element={<Reservation />} />
+            <Route path="profile" element={<Profile />}/>
           </Routes>
         </Flex>
       </UserProvider>

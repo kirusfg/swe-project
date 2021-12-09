@@ -80,7 +80,7 @@ export default function NavBar() {
                       <br />
                       <MenuDivider />
                       <MenuItem>Your Servers</MenuItem>
-                      <MenuItem>Account Settings</MenuItem>
+                      <MenuItem onClick={() => navigate('/profile')}>Account Settings</MenuItem>
                       <MenuItem onClick={() => {
                         setUser(undefined)
                         navigate('/');

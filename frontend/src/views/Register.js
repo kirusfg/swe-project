@@ -45,7 +45,7 @@ export default function Register() {
       .then((data) => {
         console.log(data);
         setUser(data);
-        navigate("/booking", { replace: true });
+        navigate("/reserve", { replace: true });
       })
       .catch((err) => console.error(err));
   }
