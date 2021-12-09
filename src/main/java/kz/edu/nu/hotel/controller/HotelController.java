@@ -97,4 +97,3 @@ public class HotelController {
     public void delete(@PathVariable Long id) {
         hotels.deleteById(id);
     }
-}
