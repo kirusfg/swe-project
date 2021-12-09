@@ -3,7 +3,6 @@ import {
   Box,
   Center,
   Flex,
-  Link,
   Button,
   Stack,
   Menu,
@@ -38,6 +37,7 @@ export default function NavBar() {
             <Stack direction={'row'} spacing={7}>
               {user ?
                 <Stack spacing={7} direction={'row'}>
+                { !user.role && 
                   <Button
                     as={BrowserLink}
                     to='/reserve'
@@ -52,6 +52,7 @@ export default function NavBar() {
                     }}>
                     Reserve
                   </Button>
+                }
                   <Menu>
                     <MenuButton
                         as={Button}
