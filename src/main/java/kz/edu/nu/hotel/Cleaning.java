@@ -22,7 +22,7 @@ public class Cleaning {
         this.scheduleEntries = scheduleEntries;
     }
 
-    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "*/240 * * * * *")
     public void main() {
         for (Hotel hotel : hotels.findAll()) {
             List<Employee> cleaners = hotel.getCleaners();
@@ -38,7 +38,10 @@ public class Cleaning {
 
                 hotel.addScheduleEntry(entry);
                 scheduleEntries.save(entry);
+                
             }
+
+            hotels.save(hotel);
         }
     }
 }
