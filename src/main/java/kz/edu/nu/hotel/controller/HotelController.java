@@ -4,10 +4,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kz.edu.nu.hotel.model.Hotel;
 import kz.edu.nu.hotel.model.Reservation;
+import kz.edu.nu.hotel.model.Booking;
 import kz.edu.nu.hotel.model.Room;
 import kz.edu.nu.hotel.model.ScheduleEntry;
 import kz.edu.nu.hotel.repository.HotelRepository;
 import kz.edu.nu.hotel.repository.ReservationRepository;
+import kz.edu.nu.hotel.repository.BookingRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +19,12 @@ import java.util.List;
 public class HotelController {
     private final HotelRepository hotels;
     private final ReservationRepository reservations;
+    private final BookingRepository bookings;
 
-    public HotelController(HotelRepository hotels, ReservationRepository reservations) {
+    public HotelController(HotelRepository hotels, ReservationRepository reservations, BookingRepository bookings) {
         this.hotels = hotels;
         this.reservations = reservations;
+        this.bookings = bookings;
     }
 
     @Operation(summary = "Returns all hotels")
@@ -97,3 +101,18 @@ public class HotelController {
     public void delete(@PathVariable Long id) {
         hotels.deleteById(id);
     }
+  
+    @Operation(summary = "Turns the reservation to the booking")
+    @PostMapping("/hotels/{hotelId}/book/{reservationId}")
+    public Booking booking(@PathVariable Long hotelId, @PathVariable Long reservationId, @RequestBody Room Room) {
+        Hotel hotel = hotels.findById(hotelId)
+                .orElseThrow(() -> new HotelNotFoundException(hotelId));
+
+        Reservation reservation = reservations.findById(reservationId);
+        Booking newBooking = new Booking(reservation.getGuest(), reservation.getType(), reservation.getStart(), reservation.getFinish());
+        hotel.newBooking(newBooking);
+        hotel.deleteReservation(reservation);
+        return bookings.save(newBooking);
+
+    }
+}

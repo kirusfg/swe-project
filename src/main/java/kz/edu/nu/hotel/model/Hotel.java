@@ -36,6 +36,9 @@ public class Hotel {
     private List<Reservation> reservations = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<ScheduleEntry> scheduleEntries = new ArrayList<>();
 
@@ -154,4 +157,13 @@ public class Hotel {
     public void addScheduleEntry(ScheduleEntry entry) {
         this.scheduleEntries.add(entry);
     }
+
+    public void newBooking(Booking entry) {
+        this.bookings.add(entry);
+    }
+
+    public void deleteReservation(Reservation entry) {
+        this.bookings.remove(entry);
+    }
+    
 }
