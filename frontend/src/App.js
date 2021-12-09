@@ -13,8 +13,8 @@ import NavBar from './components/NavBar';
 import Register from './views/Register';
 import Login from './views/Login';
 import Home from './views/Home';
-import Dashboard from './views/Dashboard';
-import Booking from "./views/Booking";
+import Dashboard from './views/dashboard';
+import Reservation from "./views/Reservation";
 
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="booking" element={<Booking />} />
+            <Route path="reserve" element={<Reservation />} />
           </Routes>
         </Flex>
       </UserProvider>

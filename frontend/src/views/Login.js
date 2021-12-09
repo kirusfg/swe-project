@@ -52,7 +52,7 @@ export default function Login() {
             if (employeeLogin) {
               navigate("/dashboard", { replace: true });
             } else {
-              navigate("/booking", { replace: true });
+              navigate("/", { replace: true });
             }
           }, 2000);
         } else {

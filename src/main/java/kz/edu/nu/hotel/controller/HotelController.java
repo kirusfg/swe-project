@@ -101,7 +101,7 @@ public class HotelController {
     public void delete(@PathVariable Long id) {
         hotels.deleteById(id);
     }
-
+  
     @Operation(summary = "Turns the reservation to the booking")
     @PostMapping("/hotels/{hotelId}/book/{reservationId}")
     public Booking booking(@PathVariable Long hotelId, @PathVariable Long reservationId, @RequestBody Room Room) {
