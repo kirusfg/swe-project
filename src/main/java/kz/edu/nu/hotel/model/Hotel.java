@@ -165,5 +165,14 @@ public class Hotel {
     public void deleteReservation(Reservation entry) {
         this.reservations.remove(entry);
     }
-    
+
+    public Employee getManager() {
+        return this.employees.stream().filter((Employee employee) ->
+                employee.getRole().equals(EmployeeRole.Manager)).collect(Collectors.toList()).get(0);
+    }
+
+    public Employee getClerk() {
+        return this.employees.stream().filter((Employee employee) ->
+                employee.getRole().equals(EmployeeRole.Clerk)).collect(Collectors.toList()).get(0);
+    }
 }
