@@ -10,7 +10,7 @@ import {UserContext} from "../providers/UserProvider";
 import {Navigate, useNavigate} from "react-router-dom";
 
 
-export default function Booking() {
+export default function Reservation() {
     const [addresses, setAdresses] = useState([]);
     const [hotel, setHotel] = useState();
     const [type, setType] = useState('Single');
@@ -110,10 +110,10 @@ export default function Booking() {
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'} textAlign={'center'}>
-                        Book
+                        Reservation
                     </Heading>
                     <Text fontSize={'lg'} color={'gray.600'}>
-                        Just pick a hotel and book
+                        Just pick a hotel and reserve a room
                     </Text>
                 </Stack>
                 <Box

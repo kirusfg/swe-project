@@ -3,11 +3,9 @@ import {
   Box,
   Center,
   Flex,
-  Text,
-  IconButton,
+  Link,
   Button,
   Stack,
-  Link,
   Menu,
   MenuButton,
   MenuList,
@@ -32,25 +30,27 @@ export default function NavBar() {
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Logo w={8} />
+          <Button as={BrowserLink} to='/' >
+            <Logo w={8} />
+          </Button>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
               {user ?
                 <Stack spacing={7} direction={'row'}>
                   <Button
-                      as={BrowserLink}
-                      to='/booking'
-                      display={{ base: 'none', md: 'inline-flex' }}
-                      fontSize={'sm'}
-                      fontWeight={600}
-                      color={'white'}
-                      bg={'blue.400'}
-                      href={'#'}
-                      _hover={{
-                        bg: 'blue.500',
-                      }}>
-                    Booking
+                    as={BrowserLink}
+                    to='/reserve'
+                    display={{ base: 'none', md: 'inline-flex' }}
+                    fontSize={'sm'}
+                    fontWeight={600}
+                    color={'white'}
+                    bg={'blue.400'}
+                    href={'#'}
+                    _hover={{
+                      bg: 'blue.500',
+                    }}>
+                    Reserve
                   </Button>
                   <Menu>
                     <MenuButton
