@@ -12,4 +12,6 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     public Optional<Reservation> findByGuestUser(@Param("user") User user);
 
     Reservation findById(@Param("id") long id);
+
+    Reservation deleteById(@Param("id") long id);
 }

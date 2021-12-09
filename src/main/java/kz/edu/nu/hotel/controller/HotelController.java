@@ -108,10 +108,14 @@ public class HotelController {
         Hotel hotel = hotels.findById(hotelId)
                 .orElseThrow(() -> new HotelNotFoundException(hotelId));
 
-        Reservation reservation = reservations.findById(reservationId);
+        Reservation reservation = reservations.findById(reservationId)
+                .orElseThrow(() -> new ReservationNotFoundException(reservationId));
+
         Booking newBooking = new Booking(reservation.getGuest(), reservation.getType(), reservation.getStart(), reservation.getFinish());
+
         hotel.newBooking(newBooking);
-        hotel.deleteReservation(reservation);
+        reservations.deleteById(reservationId);
+
         return bookings.save(newBooking);
 
     }
