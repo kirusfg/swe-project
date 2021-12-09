@@ -163,7 +163,7 @@ public class Hotel {
     }
 
     public void deleteReservation(Reservation entry) {
-        this.bookings.remove(entry);
+        this.reservations.remove(entry);
     }
     
 }

@@ -96,4 +96,8 @@ public class Room {
     public void clean() {
         this.isClean = true;
     }
+
+    public void occupy() {
+        this.isOccupied = true;
+    }
 }

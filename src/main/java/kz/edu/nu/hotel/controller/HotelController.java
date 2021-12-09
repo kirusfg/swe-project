@@ -13,6 +13,7 @@ import kz.edu.nu.hotel.repository.BookingRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "Hotels")
 @RestController
@@ -104,15 +105,24 @@ public class HotelController {
   
     @Operation(summary = "Turns the reservation to the booking")
     @PostMapping("/hotels/{hotelId}/book/{reservationId}")
-    public Booking booking(@PathVariable Long hotelId, @PathVariable Long reservationId, @RequestBody Room Room) {
+    public Booking booking(@PathVariable Long hotelId, @PathVariable Long reservationId, @RequestBody Room room) {
         Hotel hotel = hotels.findById(hotelId)
                 .orElseThrow(() -> new HotelNotFoundException(hotelId));
 
-        Reservation reservation = reservations.findById(reservationId);
-        Booking newBooking = new Booking(reservation.getGuest(), reservation.getType(), reservation.getStart(), reservation.getFinish());
-        hotel.newBooking(newBooking);
-        hotel.deleteReservation(reservation);
-        return bookings.save(newBooking);
+        Reservation reservation = reservations.findById(reservationId)
+                .orElseThrow(() -> new ReservationNotFoundException(room.getId()));
 
+        Booking newBooking = new Booking(reservation.getGuest(), reservation.getType(), reservation.getStart(), reservation.getFinish());
+
+        Room actualRoom = hotel.getRooms().stream()
+                        .filter(r -> r.getRoomNumber().equals(room.getRoomNumber()))
+                                .collect(Collectors.toList()).get(0);
+        actualRoom.occupy();
+        hotel.newBooking(newBooking);
+
+        hotel.deleteReservation(reservation);
+        reservations.delete(reservation);
+
+        return bookings.save(newBooking);
     }
 }
