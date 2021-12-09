@@ -28,7 +28,7 @@ public class Hotel {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Guest> guests = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Employee> employees = new ArrayList<>();
 
@@ -83,21 +83,21 @@ public class Hotel {
         int index = random.nextInt(1000000);
 
         List<Employee> employees = new ArrayList<>();
-        Employee manager = new Employee(String.format("manager%06d@mail.com", index),
+        Employee manager = new Employee(this, String.format("manager%06d@mail.com", index),
                 "Admin",
                 "Employev",
                 EmployeeRole.Manager);
         employees.add(manager);
 
         for (int i = 0; i < random.nextInt(50); i++) {
-            Employee cleaner = new Employee(String.format("worker%06d%d@mail.com", index, i),
+            Employee cleaner = new Employee(this, String.format("worker%06d%d@mail.com", index, i),
                     "Cleaner",
                     "Cleanerbekuly",
                     EmployeeRole.Cleaner);
             employees.add(cleaner);
         }
 
-        Employee clerk = new Employee(String.format("clerk%06d@mail.com", index),
+        Employee clerk = new Employee(this, String.format("clerk%06d@mail.com", index),
                 "Clerk",
                 "Clerkovich",
                 EmployeeRole.Clerk);
