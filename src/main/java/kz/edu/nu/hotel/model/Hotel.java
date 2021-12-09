@@ -65,7 +65,7 @@ public class Hotel {
                 rooms.add(new Room(RoomType.Single,
                         random.nextInt(30, 50),
                         random.nextInt(2, 6),
-                        String.format("%d.%03d", i, j),
+                        String.format("%d.%03dS", i, j),
                         i));
             }
         }
@@ -76,7 +76,7 @@ public class Hotel {
                 rooms.add(new Room(RoomType.Double,
                         random.nextInt(60, 120),
                         random.nextInt(4, 8),
-                        String.format("%d.%03d", i, j),
+                        String.format("%d.%03dD", i, perFloor + j),
                         i));
             }
         }
