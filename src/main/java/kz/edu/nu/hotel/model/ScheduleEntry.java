@@ -30,6 +30,18 @@ public class ScheduleEntry {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Room getRoom() {
+        return this.room;
+    }
+
+    public Employee getCleaner() {
+        return this.cleaner;
+    }
+
+    public Date getCleanTime() {
+        return this.cleanTime;
     }
 }
