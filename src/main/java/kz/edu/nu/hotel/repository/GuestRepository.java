@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface GuestRepository extends CrudRepository<Guest, Long> {
     public Optional<Guest> findByUser(@Param("user") User user);
+
+    Guest findById(@Param("id") long id);
 }
